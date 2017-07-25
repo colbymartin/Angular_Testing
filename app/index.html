@@ -8,6 +8,29 @@
     </head>
     
     <body ng-controller="testingAngularCtrl">
-        <h1>{{ title }}</h1>
+        <header><h1>{{ title }}</h1></header>
+
+        <section>
+            <form>
+                <p>City: <input name="city" type="text" ng-model="newDestination.city" /></p>
+                <p>Country: <input name="country" type="text" ng-model="newDestination.country" /></p>
+                <button ng-click="addDestination()">Add</button>
+            </form>
+        </section>
+
+        <section> 
+            <h2>Your Trip</h2>
+            <h4 ng-show="message">{{message}}</h4>
+            <div ng-repeat="destination in destinations">
+                <div destination-directive destination="destination" api-key="apiKey" on-remove="removeDestination($index)"></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Warmest Destinations</h2>
+            <div ng-repeat="destination in destinations | warmestDestinations: 10">
+                <p>{{destination.city}}, {{destination.country}}</p>
+            </div>
+        </section>
     </body>
 </html>
